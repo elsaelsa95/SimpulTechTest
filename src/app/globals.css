@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+:root {
+  --primary1: #2f80ed;
+  --primary2: #4f4f4f;
+  --primary3: #828282;
+  --primary4: #e0e0e0;
+  --indicator1: #f8b76b;
+  --indicator2: #8785ff;
+  --indicator3: #eb5757;
+  --indicator4: #f2c94c;
+  --chats1: #fceed3;
+  --chats1name: #e5a443;
+  --chats2: #eedcff;
+  --chats2name: #9b51e0;
+  --chats3: #d2f2ea;
+  --chats3name: #43b78d;
+  --stickers1: #e9f3ff;
+  --stickers2: #fdcfa4;
+  --stickers3: #f9e9c3;
+  --stickers4: #afebdb;
+  --stickers5: #cbf1c2;
+  --stickerS6: #cfcef9;
+  --stickers7: #f9e0fd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
