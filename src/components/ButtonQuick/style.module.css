@@ -1,0 +1,22 @@
+.button {
+  background-color: var(--primary2);
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 5px;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 5px;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 5px;
+}
