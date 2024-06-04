@@ -1,0 +1,25 @@
+.group {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  position: relative;
+}
+
+.circle {
+  background-color: var(--primary3);
+  border-radius: 100%;
+  min-width: 90%;
+  min-height: 90%;
+  position: absolute;
+  right: 25%;
+}
+
+.taskButton {
+  z-index: 1;
+}

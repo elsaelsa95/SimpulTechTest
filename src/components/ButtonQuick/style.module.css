@@ -14,9 +14,13 @@
   gap: 5px;
 }
 
-.chat {
+.inbox {
   display: flex;
   flex-direction: column;
   color: white;
   gap: 5px;
+}
+
+.text {
+  font-size: 12px;
 }
