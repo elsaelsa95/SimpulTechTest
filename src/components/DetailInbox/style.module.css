@@ -1,0 +1,189 @@
+.container {
+  width: 100%;
+  gap: 5px;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 2.5%;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  background-color: white;
+  border-bottom: 1px solid var(--primary4);
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.conversation {
+  overflow-y: auto;
+  overflow-x: none;
+  padding: 20% 2.5%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary1);
+}
+
+.participant {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--primary2);
+}
+
+.divider,
+.dividerNew {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.divider::before,
+.divider::after {
+  flex: 1;
+  content: "";
+  padding: 0.1px;
+  background-color: black;
+  margin: 5px;
+}
+
+.dividerNew::before,
+.dividerNew::after {
+  flex: 1;
+  content: "";
+  padding: 0.1px;
+  background-color: red;
+  margin: 5px;
+}
+
+.fromMe {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.yourName {
+  color: var(--chats2name);
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+}
+
+.detailfromMe {
+  width: 25vw;
+  min-height: 5vh;
+  background-color: var(--chats2);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 2%;
+  gap: 5px;
+}
+
+.detailfromMe .chat {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--primary3);
+}
+
+.detailfromMe .time {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--primary3);
+}
+
+.others {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.othersName {
+  color: var(--chats1name);
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+}
+
+.detailfromOthers {
+  width: 25vw;
+  min-height: 5vh;
+  background-color: var(--chats1);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 2%;
+  gap: 5px;
+}
+
+.detailfromOthers .chat {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--primary3);
+}
+
+.detailfromOthers .time {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--primary3);
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+}
+
+.newMessage {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  padding: 2.5%;
+  gap: 5px;
+  background-color: white;
+}
+
+.form {
+  width: 100%;
+  height: 2em;
+  display: flex;
+  border: none;
+}
+
+.input {
+  border: 0.1px solid var(--primary3);
+  border-radius: 5px;
+  width: 100%;
+  padding: 0 5%;
+}
+
+.input::placeholder {
+  color: var(--primary3);
+}
+
+.buttonSend {
+  width: 20%;
+  background-color: var(--primary1);
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+}

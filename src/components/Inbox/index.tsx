@@ -5,6 +5,8 @@ import style from "./style.module.css"
 import Image from "next/image";
 import { DummyInbox, IInbox } from "@/data/inbox";
 import SearchInbox from "../SearchInbox";
+import Modal from "../Modal";
+import DetailInbox from "../DetailInbox";
 
 export default function Inbox() {
     const [data, setData] = useState<IInbox[]>([])
@@ -12,6 +14,16 @@ export default function Inbox() {
     const handleSearch = (e: string) => {
         setText(e)
     };
+
+    const [id, setId] = useState("")
+    const [detailInbox, setDetailInbox] = useState(false)
+    const OpenDetailInbox = (id: string) => {
+        setId(id)
+        setDetailInbox(!detailInbox)
+    }
+    const CloseDetailInbox = () => {
+        setDetailInbox(!detailInbox)
+    }
 
     useEffect(() => {
         if (text == "") {
@@ -22,65 +34,74 @@ export default function Inbox() {
     }, [text])
 
     return (
-        <div className={style.container}>
-            <SearchInbox
-                type="text"
-                placeholder="Search"
-                value={text}
-                onChange={(e: any) => {
-                    setText(e.target.value);
-                }}
-                onKeyPress={(e: any) => {
-                    if (e.key === "Enter") {
-                        e.preventDefault();
-                        handleSearch(text);
-                    }
-                }}
-            />
-            {data.map((i) => {
-                return (
-                    <>
-                        <div className={style.list}>
-                            <div className={style.icon}>
-                                {i.participant > 1 ? <>
-                                    <div className={style.icon1}>
-                                        <Image
-                                            src="/icons/Group 1608.png"
-                                            width={100}
-                                            height={100}
-                                            alt="search"
-                                            style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
-                                        />
-                                    </div>
-                                    <div className={style.icon2}>
-                                        <Image
-                                            src="/icons/Group 1607.png"
-                                            width={100}
-                                            height={100}
-                                            alt="search"
-                                            style={{ width: "20px", height: "20px", border: "none", color: "white", padding: "2%" }}
-                                        />
-                                    </div>
-                                </> :
-                                    <div className={style.initialName}>{i.title.slice(0, 1)}</div>
-                                }
+        <>
+            {detailInbox ? <Modal open={detailInbox}><DetailInbox id={id} onClose={CloseDetailInbox} /></Modal> :
+                <div className={style.container}>
+                    <SearchInbox
+                        type="text"
+                        placeholder="Search"
+                        value={text}
+                        onChange={(e: any) => {
+                            setText(e.target.value);
+                        }}
+                        onKeyPress={(e: any) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                                handleSearch(text);
+                            }
+                        }}
+                    />
+                    {data.map((i) => {
+                        return (
+                            <div className={style.list} key={i.id} onClick={() => OpenDetailInbox(i.id)}>
+                                <div className={style.icon}>
+                                    {i.participant > 1 ? <>
+                                        <div className={style.icon1}>
+                                            <Image
+                                                src="/icons/Group 1608.png"
+                                                width={100}
+                                                height={100}
+                                                alt="search"
+                                                style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
+                                            />
+                                        </div>
+                                        <div className={style.icon2}>
+                                            <Image
+                                                src="/icons/Group 1607.png"
+                                                width={100}
+                                                height={100}
+                                                alt="search"
+                                                style={{ width: "20px", height: "20px", border: "none", color: "white", padding: "2%" }}
+                                            />
+                                        </div>
+                                    </> :
+                                        <div className={style.initialName}>{i.title.slice(0, 1)}</div>
+                                    }
+                                </div>
+                                <div className={style.content}>
+                                    {i.chat[i.chat.length - 1].detail.slice(-1).map((c) => {
+                                        return (
+                                            <>
+                                                <p className={style.title}>{i.title}
+                                                    <p className={style.date}> {i.chat[i.chat.length - 1].date} {c.time}</p>
+                                                    <p className={style.date}></p>
+                                                </p>
 
-                            </div>
-                            <div className={style.content}>
-                                <p className={style.title}>{i.title}
-                                    <p className={style.date}> {i.chat[i.chat.length - 1].date} {i.chat[i.chat.length - 1].time}</p>
-                                </p>
+                                                <p className={style.name}>{c.name}</p>
+                                                <div className={style.message}>
+                                                    <p className={style.chat}> {c.message.length > 70 ? c.message.substring(0, 70) + " ..." : c.message}</p>
+                                                    {c.unread ? <div className={style.notificationUnread}></div> : <></>}
+                                                </div>
+                                            </>
+                                        )
+                                    })}
 
-                                <p className={style.name}>{i.chat[i.chat.length - 1].name}</p>
-                                <div className={style.message}>
-                                    <p className={style.chat}> {i.chat[i.chat.length - 1].message.length > 70 ? i.chat[i.chat.length - 1].message.substring(0, 70) + " ..." : i.chat[i.chat.length - 1].message}</p>
-                                    {i.chat[i.chat.length - 1].unread ? <div className={style.notificationUnread}></div> : <></>}
                                 </div>
                             </div>
-                        </div>
-                    </>
-                )
-            })}
-        </div>
+                        )
+                    })}
+                </div>
+            }
+        </>
     )
 }
