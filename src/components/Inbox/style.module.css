@@ -1,0 +1,101 @@
+.container {
+  padding: 2.5%;
+  gap: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px;
+  min-height: 8vh;
+  border-bottom: 1px solid var(--primary3);
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  text-align: center;
+}
+
+.icon1 {
+  position: absolute;
+  left: 0%;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 100%;
+  background-color: var(--primary4);
+  align-content: center;
+}
+
+.icon2 {
+  position: absolute;
+  z-index: 1;
+  left: 2%;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 100%;
+  background-color: var(--primary1);
+  align-content: center;
+}
+
+.content {
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  color: var(--primary1);
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.date {
+  color: var(--primary2);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.name {
+  color: var(--primary2);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chat {
+  color: var(--primary2);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.notificationUnread {
+  background-color: red;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.initialName {
+  position: absolute;
+  z-index: 1;
+  left: 1%;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 100%;
+  background-color: var(--primary1);
+  color: white;
+  text-align: center;
+  align-content: center;
+}

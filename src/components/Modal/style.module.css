@@ -1,0 +1,11 @@
+.containerOpen {
+  width: 40vw;
+  height: 50vh;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.containerClose {
+  width: 0;
+  height: 0;
+}

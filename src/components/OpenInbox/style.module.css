@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+  justify-content: end;
 }
 
 .inbox {
@@ -22,4 +23,10 @@
 
 .inboxButton {
   z-index: 1;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
