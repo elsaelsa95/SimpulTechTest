@@ -1,6 +1,16 @@
 .container {
-  padding: 2.5%;
+  width: 100%;
   gap: 5px;
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  z-index: 99;
+  padding: 2.5%;
+  background-color: white;
 }
 
 .list {
@@ -9,6 +19,7 @@
   margin: 10px 5px;
   min-height: 8vh;
   border-bottom: 1px solid var(--primary3);
+  padding: 2.5%;
 }
 
 .icon {

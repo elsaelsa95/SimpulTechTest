@@ -5,6 +5,9 @@ import style from "./style.module.css"
 import { DummyInbox } from "@/data/inbox"
 import Image from "next/image"
 
+import { IoMdArrowBack } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
+
 export interface IDetailInbox {
     id: string
     onClose: () => void
@@ -31,27 +34,13 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
         <div className={style.container}>
             <div className={style.button}>
                 <div className={style.left}>
-                    <Image
-                        src="/icons/Group 1920.png"
-                        width={50}
-                        height={50}
-                        alt="back"
-                        onClick={onClose}
-                        style={{ width: "20px", height: "20px", border: "none" }}
-                    />
+                    <IoMdArrowBack onClick={onClose} />
                     <div className={style.text}>
                         <div className={style.title}>{find?.title}</div>
                         <div className={style.participant}>{find?.participant} Participants</div>
                     </div>
                 </div>
-                <Image
-                    src="/icons/close_24px.png"
-                    width={50}
-                    height={50}
-                    alt="close"
-                    onClick={onClose}
-                    style={{ width: "10px", height: "10px", border: "none" }}
-                />
+                <IoCloseOutline onClick={onClose} />
             </div>
             <div className={style.conversation}>
                 {data?.map((d) => {
