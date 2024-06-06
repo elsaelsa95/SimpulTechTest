@@ -4,7 +4,7 @@ import { useState } from "react"
 import style from "./style.module.css"
 import { DummyInbox } from "@/data/inbox"
 import Image from "next/image"
-import Modal from "../Modal"
+
 export interface IDetailInbox {
     id: string
     onClose: () => void
@@ -17,6 +17,15 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
     const handleMessage = (e: string) => {
         setText(e)
     };
+
+    const [selected, setSelected] = useState("")
+    const [option, setOption] = useState(false)
+    const handleOption = (id: string) => {
+        setSelected(id)
+        if (selected !== "") {
+            setOption(!option)
+        }
+    }
 
     return (
         <div className={style.container}>
@@ -47,54 +56,72 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
             <div className={style.conversation}>
                 {data?.map((d) => {
                     return (
-                        <>
+                        <div key={d.date}>
                             <div className={style.divider}>{d.date}</div>
                             {d.detail.map((u) => {
                                 return (
-                                    <> {u.unread ?
-                                        <div className={style.dividerNew}><p style={{ color: "red" }}>New Message</p></div>
-                                        :
-                                        <></>
-                                    }
+                                    <div key={u.id}>
+                                        {
+                                            u.unread ?
+                                                <div className={style.dividerNew}><div style={{ color: "red" }}>New Message</div></div>
+                                                :
+                                                <></>
+                                        }
                                         {
                                             u.name == "You" ?
                                                 <div className={style.fromMe}>
-                                                    <p className={style.yourName}>You</p>
+                                                    <div className={style.yourName}>You</div>
                                                     <div className={style.option}>
-                                                        <Image
-                                                            src="/icons/Group 1909.png"
-                                                            width={100}
-                                                            height={100}
-                                                            alt="search"
-                                                            style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
-                                                        />
+                                                        <div>
+                                                            <Image
+                                                                src="/icons/Group 1909.png"
+                                                                width={100}
+                                                                height={100}
+                                                                alt="search"
+                                                                onClick={() => handleOption(u.id)}
+                                                                style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
+                                                            />
+                                                            {u.id == selected && option ?
+                                                                <div className={style.openOption}>
+                                                                    <div className={style.editButton}>Edit</div>
+                                                                    <div className={style.deleteButton}>Delete</div>
+                                                                </div> : <></>}
+                                                        </div>
                                                         <div className={style.detailfromMe}>
-                                                            <p className={style.chat}>{u.message}</p>
-                                                            <p className={style.time}>{u.time}</p>
+                                                            <div className={style.chat}>{u.message}</div>
+                                                            <div className={style.time}>{u.time}</div>
                                                         </div>
                                                     </div>
                                                 </div> :
                                                 <div className={style.others}>
-                                                    <p className={style.othersName}> {u.name}</p>
+                                                    <div className={style.othersName}> {u.name}</div>
                                                     <div className={style.option}>
                                                         <div className={style.detailfromOthers}>
-                                                            <p className={style.chat}>{u.message}</p>
-                                                            <p className={style.time}>{u.time}</p>
+                                                            <div className={style.chat}>{u.message}</div>
+                                                            <div className={style.time}>{u.time}</div>
                                                         </div>
-                                                        <Image
-                                                            src="/icons/Group 1909.png"
-                                                            width={100}
-                                                            height={100}
-                                                            alt="search"
-                                                            style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
-                                                        />
+                                                        <div>
+                                                            <Image
+                                                                src="/icons/Group 1909.png"
+                                                                width={100}
+                                                                height={100}
+                                                                alt="search"
+                                                                onClick={() => handleOption(u.id)}
+                                                                style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
+                                                            />
+                                                            {u.id == selected && option ?
+                                                                <div className={style.openOption}>
+                                                                    <div className={style.editButton}>Edit</div>
+                                                                    <div className={style.deleteButton}>Delete</div>
+                                                                </div> : <></>}
+                                                        </div>
                                                     </div>
                                                 </div>
                                         }
-                                    </>
+                                    </div>
                                 )
                             })}
-                        </>
+                        </div>
                     )
                 })}
             </div>

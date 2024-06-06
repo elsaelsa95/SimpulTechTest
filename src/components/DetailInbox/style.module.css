@@ -187,3 +187,32 @@
   border: none;
   border-radius: 5px;
 }
+
+.openOption {
+  background-color: white;
+  width: 4em;
+  height: 3.3em;
+  border-radius: 5px;
+  border: 1px solid var(--primary4);
+}
+
+.editButton {
+  padding: 5px;
+  font-size: 12px;
+  color: var(--primary1);
+  border-bottom: 1px solid var(--primary4);
+}
+
+.editButton:hover {
+  background-color: var(--primary4);
+}
+
+.deleteButton {
+  padding: 5px;
+  font-size: 12px;
+  color: red;
+}
+
+.deleteButton:hover {
+  background-color: var(--primary4);
+}

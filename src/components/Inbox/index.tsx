@@ -81,18 +81,18 @@ export default function Inbox() {
                                 <div className={style.content}>
                                     {i.chat[i.chat.length - 1].detail.slice(-1).map((c) => {
                                         return (
-                                            <>
-                                                <p className={style.title}>{i.title}
-                                                    <p className={style.date}> {i.chat[i.chat.length - 1].date} {c.time}</p>
-                                                    <p className={style.date}></p>
-                                                </p>
+                                            <div key={c.id}>
+                                                <div className={style.title}>{i.title}
+                                                    <div className={style.date}> {i.chat[i.chat.length - 1].date} {c.time}</div>
+                                                    <div className={style.date}></div>
+                                                </div>
 
-                                                <p className={style.name}>{c.name}</p>
+                                                <div className={style.name}>{c.name}</div>
                                                 <div className={style.message}>
-                                                    <p className={style.chat}> {c.message.length > 70 ? c.message.substring(0, 70) + " ..." : c.message}</p>
+                                                    <div className={style.chat}> {c.message.length > 70 ? c.message.substring(0, 70) + " ..." : c.message}</div>
                                                     {c.unread ? <div className={style.notificationUnread}></div> : <></>}
                                                 </div>
-                                            </>
+                                            </div>
                                         )
                                     })}
 
