@@ -193,7 +193,6 @@
 .openOption {
   background-color: white;
   width: 4em;
-  height: 3.3em;
   border-radius: 5px;
   border: 1px solid var(--primary4);
   position: absolute;

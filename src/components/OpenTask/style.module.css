@@ -16,7 +16,7 @@
   background-color: var(--primary3);
   border-radius: 100%;
   min-width: 90%;
-  min-height: 90%;
+  height: 32px;
   position: absolute;
   right: 25%;
 }

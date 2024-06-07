@@ -3,7 +3,7 @@ export interface ITask {
     category: string
     title: string
     date: string
-    description: string | null
+    description: string
     status: boolean
 }
 

@@ -80,7 +80,6 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
                                                         <TbDots onClick={() => handleOption(u.id)} />
                                                         {u.id == selected && option ?
                                                             <div className={style.openOption}>
-                                                                <div className={style.editButton}>Edit</div>
                                                                 <div className={style.deleteButton}>Delete</div>
                                                             </div> : <></>}
                                                     </div>

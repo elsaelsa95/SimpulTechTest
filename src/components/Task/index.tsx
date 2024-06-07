@@ -68,7 +68,7 @@ export default function Task() {
                             <div className={style.headerList} key={t.id}>
                                 {t.status ?
                                     <>
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" defaultChecked />
                                         <label className={style.title} style={{ textDecoration: "line-through" }}>{t.title} </label>
                                         <div className={style.counter}></div>
                                     </> :
@@ -100,7 +100,7 @@ export default function Task() {
                                         alt="search"
                                         style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
                                     />
-                                    <input type="date" value={t.date} />
+                                    <input type="date" defaultValue={t.date} />
                                 </div>
                                 <div className={style.description}>
                                     <Image
@@ -110,7 +110,13 @@ export default function Task() {
                                         alt="description"
                                         style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
                                     />
-                                    {t.description == "" ? <div>No Description</div> : t.description}
+                                    {t.description == "" ?
+                                        <input type="text" placeholder="No Description" className={style.textarea} /> :
+                                        <textarea
+                                            defaultValue={t.description}
+                                            className={style.textarea}
+                                            cols={10} rows={10}
+                                        />}
                                 </div>
                             </div>
                             <hr />
