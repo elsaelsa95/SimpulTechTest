@@ -38,6 +38,11 @@ export default function Task() {
         setShowMyTask(!showMyTask)
     }
 
+    const [newTask, setNewTask] = useState(false)
+    const handleNewTask = () => {
+        setNewTask(!newTask)
+    }
+
     const [deleteButton, setDeleteButton] = useState(false)
     const [selectedForDelete, setSelectedForDelete] = useState("")
     const showDeletebutton = (id: any) => {
@@ -53,7 +58,7 @@ export default function Task() {
         <div className={style.container}>
             <div className={style.header}>
                 <button className={style.buttonMyTask} onClick={handleShowMyTask}>My Task <IoIosArrowDown /></button>
-                <button className={style.buttonNewTask}>New Task</button>
+                <button className={style.buttonNewTask} onClick={handleNewTask}>New Task</button>
             </div>
             {showMyTask ?
                 <div className={style.filterTask}>
@@ -123,6 +128,46 @@ export default function Task() {
                         </div>
                     )
                 })}
+                {newTask ?
+                    <form className={style.form}>
+                        <div className={style.headerNewTask}>
+                            <div>
+                                <input type="checkbox" />
+                                <input type="text" placeholder="Type Task Title" className={style.titleNewTask} />
+                            </div>
+                            <div className={style.optionNewTask}>
+                                <IoIosArrowDown />
+                                <div className={style.delete}><TbDots /></div>
+                            </div>
+                        </div>
+                        <div className={style.newTask}>
+                            <div className={style.calendar}>
+                                <Image
+                                    src="/icons/Group 1323.png"
+                                    width={100}
+                                    height={100}
+                                    alt="search"
+                                    style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
+                                />
+                                <input type="date" />
+                            </div>
+                            <div className={style.description}>
+                                <Image
+                                    src="/icons/Group 1714.png"
+                                    width={100}
+                                    height={100}
+                                    alt="description"
+                                    style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
+                                />
+                                <textarea
+                                    className={style.textarea}
+                                    placeholder="No Description"
+                                    cols={10} rows={10}
+                                />
+                            </div>
+                        </div>
+                    </form>
+                    : <></>}
             </div>
         </div>
     )

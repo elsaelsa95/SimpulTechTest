@@ -11,6 +11,7 @@
   width: 100%;
   position: absolute;
   background-color: white;
+  z-index: 1;
 }
 
 .buttonMyTask {
@@ -154,4 +155,30 @@
   top: 20px;
   right: 2px;
   z-index: 1;
+}
+
+.form {
+  height: 25vh;
+  padding-top: 2.5%;
+}
+
+.headerNewTask,
+.optionNewTask {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.newTask {
+  max-height: 25vh;
+  padding-bottom: 2.5%;
+  margin-left: 5%;
+}
+
+.titleNewTask {
+  margin-left: 10px;
+  width: 25vw;
+  padding: 1.5%;
+  border: 1px solid var(--primary3);
+  border-radius: 5px;
 }
