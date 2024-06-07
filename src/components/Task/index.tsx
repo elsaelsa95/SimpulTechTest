@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import style from "./style.module.css"
-import { DummyTask } from "@/data/task"
+import { DummyTask, ITask } from "@/data/task"
 
 import { IoIosArrowDown } from "react-icons/io";
 import { TbDots } from "react-icons/tb";
@@ -16,14 +16,53 @@ export default function Task() {
         }
         setSelected(i)
     }
+    const [showMyTask, setShowMyTask] = useState(false)
+    const handleShowMyTask = () => {
+        setShowMyTask(!showMyTask)
+    }
+
+    const [data, setData] = useState<ITask[]>(DummyTask)
+    const filterPersonalCategory = () => {
+        const find = DummyTask.filter((t) => t.category == "Personal Category")
+        if (find) {
+            setData(find)
+        }
+        setShowMyTask(!showMyTask)
+    }
+
+    const filterUrgentToDo = () => {
+        const find = DummyTask.filter((t) => t.category == "Urgent To-Do")
+        if (find) {
+            setData(find)
+        }
+        setShowMyTask(!showMyTask)
+    }
+
+    const [deleteButton, setDeleteButton] = useState(false)
+    const [selectedForDelete, setSelectedForDelete] = useState("")
+    const showDeletebutton = (id: any) => {
+        setDeleteButton(!deleteButton)
+        setSelectedForDelete(id)
+    }
+
+    const deleteTask = () => {
+        console.log("delete")
+    }
+
     return (
         <div className={style.container}>
             <div className={style.header}>
-                <button className={style.buttonMyTask}>My Task <IoIosArrowDown /></button>
+                <button className={style.buttonMyTask} onClick={handleShowMyTask}>My Task <IoIosArrowDown /></button>
                 <button className={style.buttonNewTask}>New Task</button>
             </div>
+            {showMyTask ?
+                <div className={style.filterTask}>
+                    <div className={style.optionFilter} onClick={filterPersonalCategory}>Personal Category</div>
+                    <div className={style.optionFilter} onClick={filterUrgentToDo}>Urgent To Do</div>
+                </div>
+                : <></>}
             <div className={style.list}>
-                {DummyTask.map((t) => {
+                {data.map((t) => {
                     return (
                         <div key={t.id}>
                             <div className={style.headerList} key={t.id}>
@@ -45,7 +84,12 @@ export default function Task() {
                                     onClick={() => toggle(t.id)}
                                     data-show={selected === t.id}
                                 />
-                                <TbDots />
+                                <div className={style.delete}>
+                                    <TbDots onClick={() => showDeletebutton(t.id)} />
+                                    {t.id == selectedForDelete && deleteButton ?
+                                        <div className={style.deleteButton} onClick={deleteTask}>Delete</div>
+                                        : <></>}
+                                </div>
                             </div>
                             <div className={style.detail} data-show={selected === t.id}>
                                 <div className={style.calendar}>
@@ -63,7 +107,7 @@ export default function Task() {
                                         src="/icons/Group 1714.png"
                                         width={100}
                                         height={100}
-                                        alt="search"
+                                        alt="description"
                                         style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
                                     />
                                     {t.description == "" ? <div>No Description</div> : t.description}

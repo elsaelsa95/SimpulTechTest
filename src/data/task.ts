@@ -34,7 +34,7 @@ export const DummyTask: ITask[] = [
     },
     {
         id: "gfdgd",
-        category: "Urgend To-Do",
+        category: "Urgent To-Do",
         title: "Close off Case #012920- RODRIGUES, Amiguel",
         date: "12/06/2021",
         description: "Closing off this case since this application has been cancelled. No one really understand how this case couls possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!",
@@ -42,7 +42,7 @@ export const DummyTask: ITask[] = [
     },
     {
         id: "ouhkh",
-        category: "Urgend To-Do",
+        category: "Urgent To-Do",
         title: "Set up documentation report for several Cases: Case 145443, Case 192829 and Case 182203",
         date: "14/06/2021",
         description: "All Cases must include all payment transactions, all documents and forms filled. All conversations in comments and messages in channels and emails shoudl be provided as well in.",
@@ -50,7 +50,7 @@ export const DummyTask: ITask[] = [
     },
     {
         id: "ljihi",
-        category: "Urgend To-Do",
+        category: "Urgent To-Do",
         title: "Set up appointment with Dr Blake",
         date: "22/06/2021",
         description: "",

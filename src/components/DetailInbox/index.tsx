@@ -3,10 +3,10 @@
 import { useState } from "react"
 import style from "./style.module.css"
 import { DummyInbox } from "@/data/inbox"
-import Image from "next/image"
 
 import { IoMdArrowBack } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
+import { TbDots } from "react-icons/tb"
 
 export interface IDetailInbox {
     id: string
@@ -50,62 +50,42 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
                             {d.detail.map((u) => {
                                 return (
                                     <div key={u.id}>
-                                        {
-                                            u.unread ?
-                                                <div className={style.dividerNew}><div style={{ color: "red" }}>New Message</div></div>
-                                                :
-                                                <></>
-                                        }
-                                        {
-                                            u.name == "You" ?
-                                                <div className={style.fromMe}>
-                                                    <div className={style.yourName}>You</div>
-                                                    <div className={style.option}>
-                                                        <div>
-                                                            <Image
-                                                                src="/icons/Group 1909.png"
-                                                                width={100}
-                                                                height={100}
-                                                                alt="search"
-                                                                onClick={() => handleOption(u.id)}
-                                                                style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
-                                                            />
-                                                            {u.id == selected && option ?
-                                                                <div className={style.openOption}>
-                                                                    <div className={style.editButton}>Edit</div>
-                                                                    <div className={style.deleteButton}>Delete</div>
-                                                                </div> : <></>}
-                                                        </div>
-                                                        <div className={style.detailfromMe}>
-                                                            <div className={style.chat}>{u.message}</div>
-                                                            <div className={style.time}>{u.time}</div>
-                                                        </div>
-                                                    </div>
-                                                </div> :
-                                                <div className={style.others}>
-                                                    <div className={style.othersName}> {u.name}</div>
-                                                    <div className={style.option}>
-                                                        <div className={style.detailfromOthers}>
-                                                            <div className={style.chat}>{u.message}</div>
-                                                            <div className={style.time}>{u.time}</div>
-                                                        </div>
-                                                        <div>
-                                                            <Image
-                                                                src="/icons/Group 1909.png"
-                                                                width={100}
-                                                                height={100}
-                                                                alt="search"
-                                                                onClick={() => handleOption(u.id)}
-                                                                style={{ width: "20px", height: "20px", border: "none", color: "black", padding: "2%" }}
-                                                            />
-                                                            {u.id == selected && option ?
-                                                                <div className={style.openOption}>
-                                                                    <div className={style.editButton}>Edit</div>
-                                                                    <div className={style.deleteButton}>Delete</div>
-                                                                </div> : <></>}
-                                                        </div>
+                                        {u.unread ?
+                                            <div className={style.dividerNew}><div style={{ color: "red" }}>New Message</div></div>
+                                            : <></>}
+                                        {u.name == "You" ?
+                                            <div className={style.fromMe}>
+                                                <div className={style.yourName}>You</div>
+                                                <div className={style.option}>
+                                                    <TbDots onClick={() => handleOption(u.id)} />
+                                                    {u.id == selected && option ?
+                                                        <div className={style.openOption}>
+                                                            <div className={style.editButton}>Edit</div>
+                                                            <div className={style.deleteButton}>Delete</div>
+                                                        </div> : <></>}
+                                                    <div className={style.detailfromMe}>
+                                                        <div className={style.chat}>{u.message}</div>
+                                                        <div className={style.time}>{u.time}</div>
                                                     </div>
                                                 </div>
+                                            </div> :
+                                            <div className={style.others}>
+                                                <div className={style.othersName}> {u.name}</div>
+                                                <div className={style.option}>
+                                                    <div className={style.detailfromOthers}>
+                                                        <div className={style.chat}>{u.message}</div>
+                                                        <div className={style.time}>{u.time}</div>
+                                                    </div>
+                                                    <div>
+                                                        <TbDots onClick={() => handleOption(u.id)} />
+                                                        {u.id == selected && option ?
+                                                            <div className={style.openOption}>
+                                                                <div className={style.editButton}>Edit</div>
+                                                                <div className={style.deleteButton}>Delete</div>
+                                                            </div> : <></>}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         }
                                     </div>
                                 )
