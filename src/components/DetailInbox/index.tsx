@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import style from "./style.module.css"
-import { DummyInbox } from "@/data/inbox"
+import { IInbox } from "@/data/inbox"
 
 import { IoMdArrowBack } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
@@ -13,12 +13,24 @@ export interface IDetailInbox {
     onClose: () => void
 }
 export default function DetailInbox({ id, onClose }: IDetailInbox) {
-    const find = DummyInbox.find((i) => i.id == id)
-    const data = find?.chat
+    const [inbox, setInbox] = useState<IInbox[]>([])
+    useEffect(() => {
+        const fetchDetailInbox = async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inbox?id=${id}`)
+            setInbox(await res.json())
+        }
+        fetchDetailInbox()
+    }, [id])
 
     const [text, setText] = useState("");
-    const handleMessage = (e: string) => {
-        setText(e)
+    const data = inbox[0]
+
+    const handleMessage = async (id: any) => {
+        try {
+            window.location.reload()
+        } catch (error) {
+            return error
+        }
     };
 
     const [selected, setSelected] = useState("")
@@ -30,20 +42,22 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
         }
     }
 
+
+
     return (
         <div className={style.container}>
             <div className={style.button}>
                 <div className={style.left}>
                     <IoMdArrowBack onClick={onClose} />
                     <div className={style.text}>
-                        <div className={style.title}>{find?.title}</div>
-                        <div className={style.participant}>{find?.participant} Participants</div>
+                        <div className={style.title}>{data?.title}</div>
+                        <div className={style.participant}>{data?.participant} Participants</div>
                     </div>
                 </div>
                 <IoCloseOutline onClick={onClose} />
             </div>
             <div className={style.conversation}>
-                {data?.map((d) => {
+                {data?.chat.map((d) => {
                     return (
                         <div key={d.date}>
                             <div className={style.divider}>{d.date}</div>
@@ -105,12 +119,12 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
                         onKeyPress={(e: any) => {
                             if (e.key === "Enter") {
                                 e.preventDefault();
-                                handleMessage(text);
+                                handleMessage(data.id);
                             }
                         }}
                     />
+                    <button className={style.buttonSend} type="submit">Send</button>
                 </form>
-                <button className={style.buttonSend}>Send</button>
             </div>
         </div>
     )

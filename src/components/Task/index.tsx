@@ -1,58 +1,49 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import style from "./style.module.css"
-import { DummyTask, ITask } from "@/data/task"
-
+import { ITask } from "@/data/task"
 import { IoIosArrowDown } from "react-icons/io";
-import { TbDots } from "react-icons/tb";
-import Image from "next/image";
+import FormTask from "../FormTask";
 
 export default function Task() {
-    const [selected, setSelected] = useState(null)
-    const toggle = (i: any) => {
-        if (selected == i) {
-            return setSelected(null)
-        }
-        setSelected(i)
-    }
     const [showMyTask, setShowMyTask] = useState(false)
     const handleShowMyTask = () => {
         setShowMyTask(!showMyTask)
     }
 
-    const [data, setData] = useState<ITask[]>(DummyTask)
+    const [data, setData] = useState<ITask[]>([])
+    const [filter, setFilter] = useState("")
+
     const filterPersonalCategory = () => {
-        const find = DummyTask.filter((t) => t.category == "Personal Category")
-        if (find) {
-            setData(find)
-        }
+        setFilter("Personal Category")
         setShowMyTask(!showMyTask)
     }
 
     const filterUrgentToDo = () => {
-        const find = DummyTask.filter((t) => t.category == "Urgent To-Do")
-        if (find) {
-            setData(find)
-        }
+        setFilter("Urgent To-Do")
         setShowMyTask(!showMyTask)
     }
 
     const [newTask, setNewTask] = useState(false)
+
     const handleNewTask = () => {
         setNewTask(!newTask)
     }
 
-    const [deleteButton, setDeleteButton] = useState(false)
-    const [selectedForDelete, setSelectedForDelete] = useState("")
-    const showDeletebutton = (id: any) => {
-        setDeleteButton(!deleteButton)
-        setSelectedForDelete(id)
-    }
+    const fetchTask = useCallback(async () => {
+        let res
+        if (filter) {
+            res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task?category=${filter}`)
+        } else {
+            res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task`)
+        }
+        setData(await res.json())
+    }, [filter])
 
-    const deleteTask = () => {
-        console.log("delete")
-    }
+    useEffect(() => {
+        fetchTask()
+    }, [fetchTask])
 
     return (
         <div className={style.container}>
@@ -69,106 +60,13 @@ export default function Task() {
             <div className={style.list}>
                 {data.map((t) => {
                     return (
-                        <div key={t.id}>
-                            <div className={style.headerList} key={t.id}>
-                                {t.status ?
-                                    <>
-                                        <input type="checkbox" defaultChecked />
-                                        <label className={style.title} style={{ textDecoration: "line-through" }}>{t.title} </label>
-                                        <div className={style.counter}></div>
-                                    </> :
-                                    <>
-                                        <input type="checkbox" />
-                                        <label className={style.title}>{t.title} </label>
-                                        <div className={style.counter}> 2 Days Left</div>
-                                    </>
-                                }
-                                <div className={style.date}>{t.date}</div>
-                                <IoIosArrowDown
-                                    className={style.icon}
-                                    onClick={() => toggle(t.id)}
-                                    data-show={selected === t.id}
-                                />
-                                <div className={style.delete}>
-                                    <TbDots onClick={() => showDeletebutton(t.id)} />
-                                    {t.id == selectedForDelete && deleteButton ?
-                                        <div className={style.deleteButton} onClick={deleteTask}>Delete</div>
-                                        : <></>}
-                                </div>
-                            </div>
-                            <div className={style.detail} data-show={selected === t.id}>
-                                <div className={style.calendar}>
-                                    <Image
-                                        src="/icons/Group 1323.png"
-                                        width={100}
-                                        height={100}
-                                        alt="search"
-                                        style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
-                                    />
-                                    <input type="date" defaultValue={t.date} />
-                                </div>
-                                <div className={style.description}>
-                                    <Image
-                                        src="/icons/Group 1714.png"
-                                        width={100}
-                                        height={100}
-                                        alt="description"
-                                        style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
-                                    />
-                                    {t.description == "" ?
-                                        <input type="text" placeholder="No Description" className={style.textarea} /> :
-                                        <textarea
-                                            defaultValue={t.description}
-                                            className={style.textarea}
-                                            cols={10} rows={10}
-                                        />}
-                                </div>
-                            </div>
-                            <hr />
+                        <div key={t.id} >
+                            <FormTask data={t} onChange={() => fetchTask()} />
                         </div>
                     )
                 })}
-                {newTask ?
-                    <form className={style.form}>
-                        <div className={style.headerNewTask}>
-                            <div>
-                                <input type="checkbox" />
-                                <input type="text" placeholder="Type Task Title" className={style.titleNewTask} />
-                            </div>
-                            <div className={style.optionNewTask}>
-                                <IoIosArrowDown />
-                                <div className={style.delete}><TbDots /></div>
-                            </div>
-                        </div>
-                        <div className={style.newTask}>
-                            <div className={style.calendar}>
-                                <Image
-                                    src="/icons/Group 1323.png"
-                                    width={100}
-                                    height={100}
-                                    alt="search"
-                                    style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
-                                />
-                                <input type="date" />
-                            </div>
-                            <div className={style.description}>
-                                <Image
-                                    src="/icons/Group 1714.png"
-                                    width={100}
-                                    height={100}
-                                    alt="description"
-                                    style={{ width: "30px", height: "30px", border: "none", color: "black", padding: "2%" }}
-                                />
-                                <textarea
-                                    className={style.textarea}
-                                    placeholder="No Description"
-                                    cols={10} rows={10}
-                                />
-                            </div>
-                        </div>
-                    </form>
-                    : <></>}
             </div>
+            {newTask ? <FormTask data={""} onChange={() => fetchTask()} /> : <></>}
         </div>
     )
 }

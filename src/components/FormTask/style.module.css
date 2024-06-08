@@ -1,0 +1,96 @@
+.form {
+  padding: 2.5%;
+  border-bottom: 1px solid var(--primary3);
+}
+
+.headerNewTask,
+.check,
+.optionNewTask {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.titleNewTask {
+  margin: 5px;
+  width: 15vw;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+}
+
+.counter {
+  font-size: 12px;
+  color: red;
+  width: 5vw;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.icon {
+  transition: 0.5s;
+}
+
+.icon[data-show="true"] {
+  rotate: 180deg;
+}
+
+.detail {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.detail[data-show="true"],
+.newTaskDescription {
+  max-height: 20vh;
+  padding-bottom: 2.5%;
+  margin-left: 5%;
+}
+
+.delete {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.deleteButton {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  gap: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--primary4);
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid var(--primary4);
+  cursor: pointer;
+  color: red;
+  position: absolute;
+  top: 20px;
+  right: 2px;
+  z-index: 1;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  flex-direction: row;
+}
+
+.textarea {
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  color: var(--primary3);
+}

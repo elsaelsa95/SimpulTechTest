@@ -3,13 +3,12 @@
 import { useEffect, useState } from "react";
 import style from "./style.module.css"
 import Image from "next/image";
-import { DummyInbox, IInbox } from "@/data/inbox";
+import { IInbox } from "@/data/inbox";
 import SearchInbox from "../SearchInbox";
 import Modal from "../Modal";
 import DetailInbox from "../DetailInbox";
 
 export default function Inbox() {
-    const [data, setData] = useState<IInbox[]>([])
     const [text, setText] = useState("");
     const handleSearch = (e: string) => {
         setText(e)
@@ -25,12 +24,13 @@ export default function Inbox() {
         setDetailInbox(!detailInbox)
     }
 
+    const [data, setData] = useState<IInbox[]>([])
     useEffect(() => {
-        if (text == "") {
-            setData(DummyInbox)
-        } else {
-            setData(DummyInbox.filter((i) => i.title.toLowerCase().includes(text)))
+        const fetchInboxWithText = async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inbox?q=${text}`)
+            setData(await res.json())
         }
+        fetchInboxWithText()
     }, [text])
 
     return (
