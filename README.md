@@ -13,6 +13,8 @@ About this project :
 
   - Use npm run dev for running this app in local
   - Open http://localhost:3000 with your browser to see the result.
-  - Deployment :
+  - Deployment : https://simpul-tech-test-elsaelsa95s-projects.vercel.app/
 
-  Thank You.
+For better experience, i recommend to see the project on screen 1280px.
+
+Thank You.
