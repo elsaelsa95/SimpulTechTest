@@ -25,6 +25,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
                     status: !data.status,
                 })
             })
+            onChange()
         } catch (error) {
             return error
         }
@@ -38,6 +39,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
                     title: title,
                 })
             })
+            onChange()
         } catch (error) {
             return error
         }
@@ -51,6 +53,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
                     date: date,
                 })
             })
+            onChange()
         } catch (error) {
             return error
         }
@@ -64,6 +67,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
                     description: description,
                 })
             })
+            onChange()
         } catch (error) {
             return error
         }
@@ -84,6 +88,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
                 })
             })
             setNewTask(!newTask)
+            onChange()
         } catch (error) {
             return error
         }
@@ -108,7 +113,7 @@ export default function FormTask({ data, onChange }: IFormTask) {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${id}`, {
                 method: "DELETE"
             })
-            window.location.reload()
+            onChange()
         } catch (error) {
             return error
         }

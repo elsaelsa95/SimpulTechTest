@@ -5,6 +5,7 @@ import style from "./style.module.css"
 import { ITask } from "@/data/task"
 import { IoIosArrowDown } from "react-icons/io";
 import FormTask from "../FormTask";
+import Loading from "../Loading";
 
 export default function Task() {
     const [showMyTask, setShowMyTask] = useState(false)
@@ -14,15 +15,18 @@ export default function Task() {
 
     const [data, setData] = useState<ITask[]>([])
     const [filter, setFilter] = useState("")
+    const [loading, setLoading] = useState(true)
 
     const filterPersonalCategory = () => {
         setFilter("Personal Category")
         setShowMyTask(!showMyTask)
+        setLoading(true)
     }
 
     const filterUrgentToDo = () => {
         setFilter("Urgent To-Do")
         setShowMyTask(!showMyTask)
+        setLoading(true)
     }
 
     const [newTask, setNewTask] = useState(false)
@@ -39,6 +43,7 @@ export default function Task() {
             res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task`)
         }
         setData(await res.json())
+        setLoading(false)
     }, [filter])
 
     useEffect(() => {
@@ -57,15 +62,18 @@ export default function Task() {
                     <div className={style.optionFilter} onClick={filterUrgentToDo}>Urgent To Do</div>
                 </div>
                 : <></>}
-            <div className={style.list}>
-                {data.map((t) => {
-                    return (
-                        <div key={t.id} >
-                            <FormTask data={t} onChange={() => fetchTask()} />
-                        </div>
-                    )
-                })}
-            </div>
+            {loading ?
+                <Loading description="Task List" /> :
+                <div className={style.list}>
+                    {data.map((t) => {
+                        return (
+                            <div key={t.id} >
+                                <FormTask data={t} onChange={() => fetchTask()} />
+                            </div>
+                        )
+                    })}
+                </div>
+            }
             {newTask ? <FormTask data={""} onChange={() => fetchTask()} /> : <></>}
         </div>
     )

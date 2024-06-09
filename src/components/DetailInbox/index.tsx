@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import style from "./style.module.css"
 import { IInbox } from "@/data/inbox"
 
 import { IoMdArrowBack } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { TbDots } from "react-icons/tb"
+import Loading from "../Loading";
 
 export interface IDetailInbox {
     id: string
@@ -14,13 +15,17 @@ export interface IDetailInbox {
 }
 export default function DetailInbox({ id, onClose }: IDetailInbox) {
     const [inbox, setInbox] = useState<IInbox[]>([])
-    useEffect(() => {
-        const fetchDetailInbox = async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inbox?id=${id}`)
-            setInbox(await res.json())
-        }
-        fetchDetailInbox()
+    const [loading, setLoading] = useState(true)
+
+    const fetchDetailInbox = useCallback(async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inbox?id=${id}`)
+        setInbox(await res.json())
+        setLoading(false)
     }, [id])
+
+    useEffect(() => {
+        fetchDetailInbox()
+    }, [fetchDetailInbox])
 
     const [text, setText] = useState("");
     const data = inbox[0]
@@ -42,8 +47,6 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
         }
     }
 
-
-
     return (
         <div className={style.container}>
             <div className={style.button}>
@@ -56,57 +59,59 @@ export default function DetailInbox({ id, onClose }: IDetailInbox) {
                 </div>
                 <IoCloseOutline onClick={onClose} />
             </div>
-            <div className={style.conversation}>
-                {data?.chat.map((d) => {
-                    return (
-                        <div key={d.date}>
-                            <div className={style.divider}>{d.date}</div>
-                            {d.detail.map((u) => {
-                                return (
-                                    <div key={u.id}>
-                                        {u.unread ?
-                                            <div className={style.dividerNew}><div style={{ color: "red" }}>New Message</div></div>
-                                            : <></>}
-                                        {u.name == "You" ?
-                                            <div className={style.fromMe}>
-                                                <div className={style.yourName}>You</div>
-                                                <div className={style.option}>
-                                                    <TbDots onClick={() => handleOption(u.id)} />
-                                                    {u.id == selected && option ?
-                                                        <div className={style.openOption}>
-                                                            <div className={style.editButton}>Edit</div>
-                                                            <div className={style.deleteButton}>Delete</div>
-                                                        </div> : <></>}
-                                                    <div className={style.detailfromMe}>
-                                                        <div className={style.chat}>{u.message}</div>
-                                                        <div className={style.time}>{u.time}</div>
-                                                    </div>
-                                                </div>
-                                            </div> :
-                                            <div className={style.others}>
-                                                <div className={style.othersName}> {u.name}</div>
-                                                <div className={style.option}>
-                                                    <div className={style.detailfromOthers}>
-                                                        <div className={style.chat}>{u.message}</div>
-                                                        <div className={style.time}>{u.time}</div>
-                                                    </div>
-                                                    <div>
+            {loading ? <Loading description="Chats" /> :
+                <div className={style.conversation}>
+                    {data?.chat.map((d) => {
+                        return (
+                            <div key={d.date}>
+                                <div className={style.divider}>{d.date}</div>
+                                {d.detail.map((u) => {
+                                    return (
+                                        <div key={u.id}>
+                                            {u.unread ?
+                                                <div className={style.dividerNew}><div style={{ color: "red" }}>New Message</div></div>
+                                                : <></>}
+                                            {u.name == "You" ?
+                                                <div className={style.fromMe}>
+                                                    <div className={style.yourName}>You</div>
+                                                    <div className={style.option}>
                                                         <TbDots onClick={() => handleOption(u.id)} />
                                                         {u.id == selected && option ?
                                                             <div className={style.openOption}>
+                                                                <div className={style.editButton}>Edit</div>
                                                                 <div className={style.deleteButton}>Delete</div>
                                                             </div> : <></>}
+                                                        <div className={style.detailfromMe}>
+                                                            <div className={style.chat}>{u.message}</div>
+                                                            <div className={style.time}>{u.time}</div>
+                                                        </div>
+                                                    </div>
+                                                </div> :
+                                                <div className={style.others}>
+                                                    <div className={style.othersName}> {u.name}</div>
+                                                    <div className={style.option}>
+                                                        <div className={style.detailfromOthers}>
+                                                            <div className={style.chat}>{u.message}</div>
+                                                            <div className={style.time}>{u.time}</div>
+                                                        </div>
+                                                        <div>
+                                                            <TbDots onClick={() => handleOption(u.id)} />
+                                                            {u.id == selected && option ?
+                                                                <div className={style.openOption}>
+                                                                    <div className={style.deleteButton}>Delete</div>
+                                                                </div> : <></>}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        }
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    )
-                })}
-            </div>
+                                            }
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
+                </div>
+            }
             <div className={style.newMessage}>
                 <form className={style.form}>
                     <input className={style.input}
